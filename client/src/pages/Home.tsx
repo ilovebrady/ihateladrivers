@@ -36,8 +36,8 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-sm font-normal mb-6 border border-blue-500/20">
-              <ShieldAlert size={14} />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-500/80 text-sm font-normal mb-6 border border-blue-500/20">
+              <ShieldAlert size={14} className="text-blue-500/60" />
               <span>don't take pictures while driving!</span>
             </div>
             
