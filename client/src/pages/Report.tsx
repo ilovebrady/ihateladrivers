@@ -44,6 +44,14 @@ export default function Report() {
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
     if (file) {
+      if (file.size > 10 * 1024 * 1024) {
+        toast({
+          title: "file too large",
+          description: "please upload an image smaller than 10mb",
+          variant: "destructive",
+        });
+        return;
+      }
       setImageFile(file);
       const preview = URL.createObjectURL(file);
       setImagePreview(preview);
@@ -57,13 +65,13 @@ export default function Report() {
         }
       });
     }
-  }, [analyzeMutation]);
+  }, [analyzeMutation, toast]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: { 'image/*': [] },
     maxFiles: 1,
-    maxSize: 5 * 1024 * 1024, // 5MB limit
+    maxSize: 10 * 1024 * 1024, // 10MB limit
   });
 
   const handleSubmit = () => {
