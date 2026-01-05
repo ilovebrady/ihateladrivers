@@ -62,6 +62,7 @@ export default function Report() {
     onDrop,
     accept: { 'image/*': [] },
     maxFiles: 1,
+    maxSize: 5 * 1024 * 1024, // 5MB limit
   });
 
   const handleSubmit = () => {
@@ -83,28 +84,11 @@ export default function Report() {
 
   if (isAuthLoading) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin" /></div>;
 
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <Card className="max-w-md w-full p-8 text-center space-y-6 bg-card border-white/5">
-          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto text-primary">
-            <AlertTriangle size={32} />
-          </div>
-          <h2 className="text-2xl font-bold">Authentication Required</h2>
-          <p className="text-muted-foreground">You must be logged in to report a bad driver. We keep the community safe by verifying reporters.</p>
-          <Button onClick={() => window.location.href = "/api/login"} className="w-full" size="lg">
-            Login to Continue
-          </Button>
-        </Card>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen py-12 px-4 container max-w-2xl mx-auto">
       <div className="mb-8 text-center">
-        <h1 className="text-3xl font-display font-bold mb-2">Report Incident</h1>
-        <p className="text-muted-foreground">Document dangerous driving and keep roads safe.</p>
+        <h1 className="text-3xl font-display font-bold mb-2 uppercase">Report Incident</h1>
+        <p className="text-muted-foreground">Document dangerous driving in Los Angeles.</p>
       </div>
 
       <AnimatePresence mode="wait">

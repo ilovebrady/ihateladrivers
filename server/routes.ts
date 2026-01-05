@@ -53,9 +53,14 @@ export async function registerRoutes(
     try {
       const { imageUrl } = api.plates.analyze.input.parse(req.body);
 
+      // Simple size check for base64
+      if (imageUrl.length > 7 * 1024 * 1024) { // Roughly 5MB after base64 overhead
+        return res.status(400).json({ message: "Image is too large. Please upload an image under 5MB." });
+      }
+
       // Use OpenAI Vision to detect license plate
       const response = await openai.chat.completions.create({
-        model: "gpt-5.1",
+        model: "gpt-4o", // Using gpt-4o for better vision capabilities
         messages: [
           {
             role: "user",
@@ -78,7 +83,7 @@ export async function registerRoutes(
       res.json({ licenseNumber: plateNumber });
     } catch (error) {
       console.error("Analysis error:", error);
-      res.status(500).json({ message: "Failed to analyze image" });
+      res.status(500).json({ message: "Failed to analyze image. Please try a smaller file or a clearer photo." });
     }
   });
 
