@@ -36,9 +36,9 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-normal mb-6 border border-primary/20">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-sm font-normal mb-6 border border-blue-500/20">
               <ShieldAlert size={14} />
-              <span>Community Driven Road Safety</span>
+              <span>don't take pictures while driving!</span>
             </div>
             
             <h1 className="text-5xl md:text-7xl font-display font-normal mb-6 leading-none">
