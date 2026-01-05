@@ -23,7 +23,7 @@ export function PlateCard({ id, licenseNumber, reportCount, averageRating, lastR
         <div className="glass-panel rounded-xl p-5 hover:border-primary/50 transition-colors h-full flex flex-col justify-between">
           {/* Rank Badge if provided */}
           {rank && rank <= 3 && (
-            <div className={`absolute -top-3 -right-3 w-8 h-8 rounded-full flex items-center justify-center font-bold text-white shadow-lg ${
+            <div className={`absolute -top-3 -right-3 w-8 h-8 rounded-full flex items-center justify-center font-normal text-white shadow-lg ${
               rank === 1 ? 'bg-yellow-500' : rank === 2 ? 'bg-slate-400' : 'bg-orange-700'
             }`}>
               {rank}
@@ -44,18 +44,18 @@ export function PlateCard({ id, licenseNumber, reportCount, averageRating, lastR
                 <div className="flex items-center justify-center text-orange-500 mb-1">
                   <Star size={16} fill="currentColor" />
                 </div>
-                <div className="text-xl font-bold text-foreground">
+                <div className="text-xl font-normal text-foreground">
                   {averageRating ? averageRating.toFixed(1) : "-"}
                 </div>
-                <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Avg Rating</div>
+                <div className="text-[10px] tracking-wider text-muted-foreground">avg rating</div>
               </div>
               
               <div className="bg-background/40 rounded-lg p-2.5 text-center border border-white/5">
                 <div className="flex items-center justify-center text-primary mb-1">
                   <AlertTriangle size={16} />
                 </div>
-                <div className="text-xl font-bold text-foreground">{reportCount}</div>
-                <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Reports</div>
+                <div className="text-xl font-normal text-foreground">{reportCount}</div>
+                <div className="text-[10px] tracking-wider text-muted-foreground">reports</div>
               </div>
             </div>
           </div>
@@ -65,8 +65,8 @@ export function PlateCard({ id, licenseNumber, reportCount, averageRating, lastR
               <Clock size={12} />
               {lastReported ? formatDistanceToNow(new Date(lastReported), { addSuffix: true }) : 'No reports yet'}
             </div>
-            <span className="text-primary/80 font-medium group-hover:translate-x-1 transition-transform">
-              View details →
+            <span className="text-primary/80 font-normal group-hover:translate-x-1 transition-transform">
+              view details →
             </span>
           </div>
         </div>

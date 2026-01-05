@@ -24,27 +24,27 @@ export function Navigation() {
             <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white group-hover:scale-105 transition-transform duration-200">
               <CarFront size={24} className="group-hover:animate-pulse" />
             </div>
-            <span className="font-display text-2xl font-bold tracking-wider text-foreground">
-              IHATELA<span className="text-primary">DRIVERS</span>
+            <span className="font-display text-2xl font-normal tracking-wider text-foreground">
+              ihatela<span className="text-primary">drivers</span>
             </span>
           </Link>
           
           <div className="hidden md:flex items-center gap-6">
             <Link 
               href="/" 
-              className={`text-sm font-medium transition-colors hover:text-primary ${
+              className={`text-sm font-normal transition-colors hover:text-primary ${
                 location === "/" ? "text-primary" : "text-muted-foreground"
               }`}
             >
-              Leaderboard
+              leaderboard
             </Link>
             <Link 
               href="/search" 
-              className={`text-sm font-medium transition-colors hover:text-primary ${
+              className={`text-sm font-normal transition-colors hover:text-primary ${
                 location === "/search" ? "text-primary" : "text-muted-foreground"
               }`}
             >
-              Search Plates
+              search plates
             </Link>
           </div>
         </div>
@@ -52,10 +52,10 @@ export function Navigation() {
         <div className="flex items-center gap-4">
           <Link href="/report">
             <Button 
-              className="hidden sm:flex bg-primary hover:bg-primary/90 border-0"
+              className="hidden sm:flex bg-primary hover:bg-primary/90 border-0 font-normal"
             >
               <Plus className="mr-2 h-4 w-4" />
-              Report Driver
+              report driver
             </Button>
           </Link>
 
@@ -64,9 +64,9 @@ export function Navigation() {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-10 w-10 rounded-full hover:bg-muted">
                   <Avatar className="h-10 w-10 border-2 border-primary/20">
-                    <AvatarImage src={user?.profileImageUrl || undefined} alt={user?.firstName || 'User'} />
-                    <AvatarFallback className="bg-primary/10 text-primary font-bold">
-                      {user?.firstName?.[0] || 'U'}
+                    <AvatarImage src={user?.profileImageUrl || undefined} alt={user?.firstName || 'user'} />
+                    <AvatarFallback className="bg-primary/10 text-primary font-normal">
+                      {user?.firstName?.[0] || 'u'}
                     </AvatarFallback>
                   </Avatar>
                 </Button>
@@ -74,7 +74,7 @@ export function Navigation() {
               <DropdownMenuContent className="w-56" align="end" forceMount>
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium leading-none">{user?.firstName} {user?.lastName}</p>
+                    <p className="text-sm font-normal leading-none">{user?.firstName} {user?.lastName}</p>
                     <p className="text-xs leading-none text-muted-foreground">
                       {user?.email}
                     </p>
@@ -83,15 +83,15 @@ export function Navigation() {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => logout()} className="text-red-500 cursor-pointer focus:text-red-500">
                   <LogOut className="mr-2 h-4 w-4" />
-                  <span>Log out</span>
+                  <span>log out</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
             <Link href="/api/login">
-              <Button variant="outline" className="border-primary/20 hover:bg-primary/5 hover:text-primary">
+              <Button variant="outline" className="border-primary/20 hover:bg-primary/5 hover:text-primary font-normal">
                 <LogIn className="mr-2 h-4 w-4" />
-                Login
+                login
               </Button>
             </Link>
           )}

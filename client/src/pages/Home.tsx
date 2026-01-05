@@ -36,15 +36,15 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6 border border-primary/20">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-normal mb-6 border border-primary/20">
               <ShieldAlert size={14} />
               <span>Community Driven Road Safety</span>
             </div>
             
-            <h1 className="text-5xl md:text-7xl font-display font-bold mb-6 leading-none uppercase">
-              TERRIBLE DRIVER? <br />
+            <h1 className="text-5xl md:text-7xl font-display font-normal mb-6 leading-none">
+              terrible driver? <br />
               <span className="text-primary">
-                KEEP THEM ACCOUNTABLE
+                keep them accountable
               </span>
             </h1>
             
@@ -74,9 +74,9 @@ export default function Home() {
       <section className="container max-w-7xl mx-auto px-4 mb-20">
         <Card className="border-none shadow-none bg-muted/30">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-2xl">
+            <CardTitle className="flex items-center gap-2 text-2xl font-normal">
               <Car className="text-primary" />
-              Worst Driving Brands
+              worst driving brands
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -86,9 +86,9 @@ export default function Home() {
               <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                 {brandStats?.map((brand: any) => (
                   <div key={brand.make} className="bg-background p-4 rounded-xl border flex flex-col items-center justify-center text-center">
-                    <span className="text-sm font-bold text-muted-foreground uppercase">{brand.make}</span>
-                    <span className="text-2xl font-black text-primary">{brand.count}</span>
-                    <span className="text-xs text-muted-foreground">REPORTS</span>
+                    <span className="text-sm font-normal text-muted-foreground">{brand.make}</span>
+                    <span className="text-2xl font-normal text-primary">{brand.count}</span>
+                    <span className="text-xs text-muted-foreground">reports</span>
                   </div>
                 ))}
                 {(!brandStats || brandStats.length === 0) && (
@@ -106,9 +106,9 @@ export default function Home() {
       <section className="container max-w-7xl mx-auto px-4">
         <div className="flex items-end justify-between mb-8">
           <div>
-            <h2 className="text-3xl font-bold flex items-center gap-3">
+            <h2 className="text-3xl font-normal flex items-center gap-3">
               <TrendingUp className="text-primary" />
-              Community Reports
+              community reports
             </h2>
             <p className="text-muted-foreground mt-2">Drivers with the highest severity ratings this week.</p>
           </div>
