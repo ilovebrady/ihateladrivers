@@ -21,8 +21,9 @@ export function Navigation() {
       <div className="container max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center gap-8">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white group-hover:scale-105 transition-transform duration-200">
-              <CarFront size={24} className="group-hover:animate-pulse" />
+            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-all duration-300 relative overflow-hidden">
+              <div className="absolute inset-0 bg-primary/5 blur-sm animate-pulse" />
+              <CarFront size={24} className="relative z-10 group-hover:rotate-12 transition-transform" />
             </div>
             <span className="font-display text-2xl font-normal tracking-wider text-foreground">
               ihatela<span className="text-primary">drivers</span>

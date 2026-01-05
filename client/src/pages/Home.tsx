@@ -6,10 +6,16 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Plate } from "@shared/schema";
+
+interface PlateWithStats extends Plate {
+  reportCount: number;
+  averageRating: number | null;
+}
 
 export default function Home() {
   // Sort by 'worst' to show highest average rating plates first
-  const { data: plates, isLoading } = usePlates('worst');
+  const { data: plates, isLoading } = usePlates('worst') as { data: PlateWithStats[] | undefined, isLoading: boolean };
 
   const { data: brandStats, isLoading: isBrandsLoading } = useQuery({
     queryKey: ["/api/brands/stats"],
