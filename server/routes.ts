@@ -55,7 +55,7 @@ export async function registerRoutes(
 
       // Use OpenAI Vision to detect license plate
       const response = await openai.chat.completions.create({
-        model: "gpt-5.1", // Or appropriate vision model if gpt-5.1 supports it, or generic vision fallback
+        model: "gpt-5.1",
         messages: [
           {
             role: "user",
@@ -84,7 +84,7 @@ export async function registerRoutes(
 
   // === Reports API ===
 
-  app.post(api.reports.create.path, isAuthenticated, async (req, res) => {
+  app.post(api.reports.create.path, async (req, res) => {
     try {
       const input = api.reports.create.input.parse(req.body);
       
@@ -94,7 +94,10 @@ export async function registerRoutes(
         plate = await storage.createPlate(input.licenseNumber);
       }
 
-      const report = await storage.createReport(req.user!.id, {
+      // Allow anonymous reports
+      const userId = req.user?.id || null;
+
+      const report = await storage.createReport(userId, {
         ...input,
         plateId: plate.id,
       });
@@ -117,26 +120,5 @@ export async function registerRoutes(
     res.json(reports);
   });
 
-  // Initialize seed data
-  seedDatabase();
-
   return httpServer;
-}
-
-// Seed function
-async function seedDatabase() {
-  try {
-    const plates = await storage.getPlates();
-    if (plates.length === 0) {
-      console.log("Seeding database...");
-      const p1 = await storage.createPlate("BADDRVR");
-      const p2 = await storage.createPlate("CUTOFF");
-      
-      // We need a user ID. If none exists, we can't easily seed reports with valid reporterId without creating a user first.
-      // Skipping report seeding if no users, or we can mock it if we had a seed user.
-      // For now, just plates is fine.
-    }
-  } catch (err) {
-    console.error("Seed error:", err);
-  }
 }
