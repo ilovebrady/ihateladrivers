@@ -17,8 +17,9 @@ export interface IStorage {
   createPlate(licenseNumber: string): Promise<Plate>;
 
   // Reports
-  createReport(userId: string, report: InsertReport & { plateId: number }): Promise<Report>;
+  createReport(userId: string | null, report: InsertReport & { plateId: number }): Promise<Report>;
   getRecentReports(): Promise<Report[]>;
+  getBrandStats(): Promise<{ make: string; count: number; avgRating: number }[]>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -83,10 +84,15 @@ export class DatabaseStorage implements IStorage {
     return plate;
   }
 
-  async createReport(userId: string, report: InsertReport & { plateId: number }): Promise<Report> {
+  async createReport(userId: string | null, report: InsertReport & { plateId: number }): Promise<Report> {
     const [newReport] = await db.insert(reports)
       .values({
-        ...report,
+        plateId: report.plateId,
+        imageUrl: report.imageUrl,
+        carMake: (report as any).carMake,
+        rating: report.rating,
+        comment: report.comment,
+        location: report.location,
         reporterId: userId,
       })
       .returning();
@@ -98,6 +104,25 @@ export class DatabaseStorage implements IStorage {
       orderBy: desc(reports.createdAt),
       limit: 10,
     });
+  }
+
+  async getBrandStats(): Promise<{ make: string; count: number; avgRating: number }[]> {
+    const results = await db.select({
+      make: reports.carMake,
+      count: sql<number>`count(${reports.id})::int`,
+      avgRating: sql<number>`avg(${reports.rating})`,
+    })
+    .from(reports)
+    .where(sql`${reports.carMake} IS NOT NULL`)
+    .groupBy(reports.carMake)
+    .orderBy(desc(sql`count(${reports.id})`))
+    .limit(10);
+
+    return results.map(r => ({
+      make: (r.make as string) || "Unknown",
+      count: r.count,
+      avgRating: Number(r.avgRating)
+    }));
   }
 }
 

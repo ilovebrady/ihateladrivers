@@ -20,6 +20,7 @@ export const reports = pgTable("reports", {
   plateId: integer("plate_id").references(() => plates.id),
   reporterId: varchar("reporter_id").references(() => users.id),
   imageUrl: text("image_url").notNull(),
+  carMake: varchar("car_make", { length: 50 }),
   rating: integer("rating").notNull(), // 1-5, 5 is worst
   comment: text("comment"),
   location: text("location"),
@@ -46,6 +47,8 @@ export const insertReportSchema = createInsertSchema(reports).omit({
   createdAt: true,
   plateId: true,
   reporterId: true,
+}).extend({
+  licenseNumber: z.string().min(1, "License plate is required"),
 });
 
 export const analyzeImageSchema = z.object({

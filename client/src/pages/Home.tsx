@@ -1,13 +1,19 @@
 import { usePlates } from "@/hooks/use-plates";
 import { PlateCard } from "@/components/PlateCard";
-import { Loader2, AlertTriangle, TrendingUp, ShieldAlert } from "lucide-react";
+import { Loader2, AlertTriangle, TrendingUp, ShieldAlert, Car } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
+import { useQuery } from "@tanstack/react-query";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Home() {
   // Sort by 'worst' to show highest average rating plates first
   const { data: plates, isLoading } = usePlates('worst');
+
+  const { data: brandStats, isLoading: isBrandsLoading } = useQuery({
+    queryKey: ["/api/brands/stats"],
+  });
 
   if (isLoading) {
     return (
@@ -24,7 +30,6 @@ export default function Home() {
     <div className="min-h-screen pb-20">
       {/* Hero Section */}
       <section className="relative overflow-hidden py-20 px-4">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-background to-background" />
         <div className="container max-w-5xl mx-auto relative z-10 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -37,9 +42,9 @@ export default function Home() {
             </div>
             
             <h1 className="text-5xl md:text-7xl font-display font-bold mb-6 leading-none uppercase">
-              REPORT THE <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-600">
-                DRIVERS OF LA
+              TERRIBLE DRIVER? <br />
+              <span className="text-primary">
+                KEEP THEM ACCOUNTABLE
               </span>
             </h1>
             
@@ -63,6 +68,38 @@ export default function Home() {
             </div>
           </motion.div>
         </div>
+      </section>
+
+      {/* Brand Tally Section */}
+      <section className="container max-w-7xl mx-auto px-4 mb-20">
+        <Card className="border-none shadow-none bg-muted/30">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-2xl">
+              <Car className="text-primary" />
+              Worst Driving Brands
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {isBrandsLoading ? (
+              <Loader2 className="w-6 h-6 animate-spin mx-auto" />
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                {brandStats?.map((brand: any) => (
+                  <div key={brand.make} className="bg-background p-4 rounded-xl border flex flex-col items-center justify-center text-center">
+                    <span className="text-sm font-bold text-muted-foreground uppercase">{brand.make}</span>
+                    <span className="text-2xl font-black text-primary">{brand.count}</span>
+                    <span className="text-xs text-muted-foreground">REPORTS</span>
+                  </div>
+                ))}
+                {(!brandStats || brandStats.length === 0) && (
+                  <div className="col-span-full py-8 text-center text-muted-foreground italic">
+                    Waiting for brand data...
+                  </div>
+                )}
+              </div>
+            )}
+          </CardContent>
+        </Card>
       </section>
 
       {/* Leaderboard Section */}

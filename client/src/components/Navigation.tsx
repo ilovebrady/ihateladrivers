@@ -21,7 +21,7 @@ export function Navigation() {
       <div className="container max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center gap-8">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-orange-600 flex items-center justify-center text-white shadow-lg shadow-primary/25 group-hover:scale-105 transition-transform duration-200">
+            <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white group-hover:scale-105 transition-transform duration-200">
               <CarFront size={24} className="group-hover:animate-pulse" />
             </div>
             <span className="font-display text-2xl font-bold tracking-wider text-foreground">
@@ -52,7 +52,7 @@ export function Navigation() {
         <div className="flex items-center gap-4">
           <Link href="/report">
             <Button 
-              className="hidden sm:flex bg-gradient-to-r from-primary to-orange-600 hover:from-primary/90 hover:to-orange-600/90 shadow-lg shadow-primary/20 border-0"
+              className="hidden sm:flex bg-primary hover:bg-primary/90 border-0"
             >
               <Plus className="mr-2 h-4 w-4" />
               Report Driver

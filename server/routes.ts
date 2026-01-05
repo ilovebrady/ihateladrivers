@@ -100,7 +100,7 @@ export async function registerRoutes(
       }
 
       // Allow anonymous reports
-      const userId = req.user?.id || null;
+      const userId = (req.user as any)?.id || null;
 
       const report = await storage.createReport(userId, {
         ...input,
@@ -123,6 +123,16 @@ export async function registerRoutes(
   app.get(api.reports.list.path, async (req, res) => {
     const reports = await storage.getRecentReports();
     res.json(reports);
+  });
+
+  app.get("/api/brands/stats", async (_req, res) => {
+    try {
+      const stats = await storage.getBrandStats();
+      res.json(stats);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Failed to fetch brand stats" });
+    }
   });
 
   return httpServer;

@@ -33,6 +33,7 @@ export default function Report() {
   
   // Form State
   const [licenseNumber, setLicenseNumber] = useState("");
+  const [carMake, setCarMake] = useState("");
   const [rating, setRating] = useState([3]); // 1-5 scale
   const [comment, setComment] = useState("");
   const [locationStr, setLocationStr] = useState("");
@@ -70,6 +71,7 @@ export default function Report() {
     
     createReportMutation.mutate({
       licenseNumber,
+      carMake,
       imageUrl: imagePreview, // In a real app, upload to S3 first and get URL
       rating: rating[0],
       comment,
@@ -162,6 +164,17 @@ export default function Report() {
                   />
                   <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-gray-400 pointer-events-none">EDITABLE</span>
                 </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="carMake">Car Brand (Optional)</Label>
+                <Input 
+                  id="carMake" 
+                  placeholder="e.g. Tesla, Jeep, Honda" 
+                  className="bg-background/50"
+                  value={carMake}
+                  onChange={(e) => setCarMake(e.target.value)}
+                />
               </div>
 
               <div className="space-y-4">
