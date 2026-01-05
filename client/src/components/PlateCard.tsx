@@ -69,7 +69,7 @@ export function PlateCard({ id, licenseNumber, reportCount, averageRating, lastR
                     <Star size={16} fill="currentColor" />
                   </div>
                   <div className="text-xl font-normal text-foreground">
-                    {averageRating ? averageRating.toFixed(1) : "-"}
+                    {averageRating ? Number(averageRating).toFixed(1) : "-"}
                   </div>
                   <div className="text-[10px] tracking-wider text-muted-foreground">avg rating</div>
                 </div>
