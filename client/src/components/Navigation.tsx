@@ -25,7 +25,7 @@ export function Navigation() {
               <CarFront size={24} className="group-hover:animate-pulse" />
             </div>
             <span className="font-display text-2xl font-bold tracking-wider text-foreground">
-              BAD<span className="text-primary">DRIVER</span>
+              IHATELA<span className="text-primary">DRIVERS</span>
             </span>
           </Link>
           
