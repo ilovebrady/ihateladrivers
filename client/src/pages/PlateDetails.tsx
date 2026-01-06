@@ -32,11 +32,9 @@ export default function PlateDetails() {
   }
 
   // Calculate average rating from reports in details response
-  // Note: The API response might differ slightly if we didn't include stats in the 'get' endpoint
-  // but let's assume the reports array is populated.
   const reports = plate.reports || [];
   const averageRating = reports.length > 0 
-    ? (reports.reduce((acc, curr) => acc + curr.rating, 0) / reports.length).toFixed(1)
+    ? (reports.reduce((acc, curr) => acc + Number(curr.rating), 0) / reports.length).toFixed(1)
     : "-";
 
   return (
@@ -45,7 +43,7 @@ export default function PlateDetails() {
       <div className="bg-muted/30 border-b border-white/5 py-12">
         <div className="container max-w-5xl mx-auto px-4 text-center">
           <div className="inline-block mx-auto mb-8">
-            <div className="license-plate text-5xl sm:text-7xl px-8 py-4 min-w-[300px] shadow-2xl">
+            <div className="license-plate text-5xl sm:text-7xl px-8 py-4 min-w-[300px] shadow-2xl uppercase">
               {plate.licenseNumber}
             </div>
           </div>

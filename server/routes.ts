@@ -78,7 +78,7 @@ export async function registerRoutes(
         max_tokens: 20,
       });
 
-      const plateNumber = response.choices[0].message.content?.trim().replace(/[^A-Z0-9]/gi, '') || "UNKNOWN";
+      const plateNumber = response.choices[0].message.content?.trim().replace(/[^A-Z0-9]/gi, '').toUpperCase() || "UNKNOWN";
 
       res.json({ licenseNumber: plateNumber });
     } catch (error) {
@@ -94,9 +94,10 @@ export async function registerRoutes(
       const input = api.reports.create.input.parse(req.body);
       
       // Find or create plate
-      let plate = await storage.getPlateByNumber(input.licenseNumber);
+      const upperLicenseNumber = input.licenseNumber.toUpperCase();
+      let plate = await storage.getPlateByNumber(upperLicenseNumber);
       if (!plate) {
-        plate = await storage.createPlate(input.licenseNumber);
+        plate = await storage.createPlate(upperLicenseNumber);
       }
 
       // Allow anonymous reports

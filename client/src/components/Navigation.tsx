@@ -89,12 +89,12 @@ export function Navigation() {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Link href="/api/login">
+            <a href="/api/login">
               <Button variant="outline" className="border-primary/20 hover:bg-primary/5 hover:text-primary font-normal">
                 <LogIn className="mr-2 h-4 w-4" />
                 login
               </Button>
-            </Link>
+            </a>
           )}
         </div>
       </div>
