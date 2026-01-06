@@ -30,6 +30,7 @@ export default function Report() {
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [base64Image, setBase64Image] = useState<string | null>(null);
   
   // Form State
   const [licenseNumber, setLicenseNumber] = useState("");
@@ -58,6 +59,7 @@ export default function Report() {
       
       // Auto-analyze upon upload
       const base64 = await toBase64(file);
+      setBase64Image(base64);
       analyzeMutation.mutate(base64, {
         onSuccess: (data) => {
           setLicenseNumber(data.licenseNumber);
@@ -80,7 +82,7 @@ export default function Report() {
     createReportMutation.mutate({
       licenseNumber,
       carMake,
-      imageUrl: imagePreview, // In a real app, upload to S3 first and get URL
+      imageUrl: base64Image || "", // Use the stored base64 image
       rating: rating[0],
       comment,
       location: locationStr,

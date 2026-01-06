@@ -55,8 +55,7 @@ export function Navigation() {
             <Button 
               className="hidden sm:flex bg-primary hover:bg-primary/90 border-0 font-normal"
             >
-              <Plus className="mr-2 h-4 w-4" />
-              report driver
+              upload socal driver
             </Button>
           </Link>
 

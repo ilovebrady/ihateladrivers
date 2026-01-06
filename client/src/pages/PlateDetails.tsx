@@ -68,7 +68,7 @@ export default function PlateDetails() {
             <div className="col-span-2 md:col-span-1 p-6 rounded-2xl bg-background/50 border border-white/5 backdrop-blur flex flex-col items-center justify-center">
               <div className="text-muted-foreground text-sm uppercase tracking-wider mb-2">Status</div>
               <div className="font-bold text-xl uppercase tracking-widest text-red-500">
-                {Number(averageRating) > 3 ? "DANGEROUS" : "CAUTION"}
+                {Number(averageRating) >= 3 ? "DANGEROUS" : "CAUTION"}
               </div>
             </div>
           </div>
