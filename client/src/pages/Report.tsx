@@ -99,7 +99,7 @@ export default function Report() {
   return (
     <div className="min-h-screen py-12 px-4 container max-w-2xl mx-auto">
       <div className="mb-8 text-center">
-        <h1 className="text-3xl font-display font-bold mb-2 uppercase">Report Incident</h1>
+        <h1 className="text-3xl font-display font-bold mb-2 uppercase">upload socal driver</h1>
         <p className="text-muted-foreground">Document dangerous driving in Los Angeles.</p>
       </div>
 

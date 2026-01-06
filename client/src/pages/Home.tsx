@@ -62,8 +62,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/report">
                 <Button size="lg" className="h-14 px-8 text-lg rounded-xl bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20">
-                  <AlertTriangle className="mr-2 h-5 w-5" />
-                  Report a Driver
+                  upload socal driver
                 </Button>
               </Link>
               <Link href="/search">

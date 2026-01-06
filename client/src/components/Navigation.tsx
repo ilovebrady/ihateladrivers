@@ -53,7 +53,8 @@ export function Navigation() {
         <div className="flex items-center gap-4">
           <Link href="/report">
             <Button 
-              className="hidden sm:flex bg-primary hover:bg-primary/90 border-0 font-normal"
+              className="hidden sm:flex bg-primary hover:bg-primary/90 border-0 font-normal px-6 rounded-full"
+              data-testid="button-report-driver"
             >
               upload socal driver
             </Button>

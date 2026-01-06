@@ -12,11 +12,17 @@ export function ReportCard({ report }: ReportCardProps) {
       <div className="flex flex-col md:flex-row">
         {/* Image Section */}
         <div className="w-full md:w-48 h-48 bg-muted relative shrink-0">
-          <img 
-            src={report.imageUrl} 
-            alt="Report evidence" 
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          />
+          {report.imageUrl && (
+            <img 
+              src={report.imageUrl} 
+              alt="Report evidence" 
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              onError={(e) => {
+                console.error("Image load error:", report.imageUrl);
+                (e.target as HTMLImageElement).src = "https://placehold.co/400x400?text=No+Photo";
+              }}
+            />
+          )}
           <div className="absolute top-2 right-2 bg-black/70 backdrop-blur text-white text-xs px-2 py-1 rounded font-bold flex items-center gap-1">
             <Star size={12} className="text-orange-500" fill="currentColor" />
             {report.rating}/5
