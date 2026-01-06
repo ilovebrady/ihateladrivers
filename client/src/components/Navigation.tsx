@@ -26,7 +26,7 @@ export function Navigation() {
               <CarFront size={24} className="relative z-10 group-hover:rotate-12 transition-transform" />
             </div>
             <span className="font-display text-2xl font-normal tracking-wider text-foreground">
-              ihatela<span className="text-primary">drivers</span>
+              hall of <span className="text-primary">shame</span>
             </span>
           </Link>
           

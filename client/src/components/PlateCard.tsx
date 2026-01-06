@@ -57,7 +57,7 @@ export function PlateCard({ id, licenseNumber, reportCount, averageRating, lastR
             <div className="space-y-4">
               {/* License Plate Graphic */}
               <div className="flex justify-center">
-                <div className="license-plate px-6 py-2 text-3xl sm:text-4xl min-w-[180px] group-hover:shadow-[0_0_15px_rgba(255,255,255,0.3)] transition-shadow">
+                <div className="license-plate px-6 py-2 text-3xl sm:text-4xl min-w-[180px] group-hover:shadow-[0_0_15px_rgba(255,255,255,0.3)] transition-shadow uppercase">
                   {licenseNumber}
                 </div>
               </div>
