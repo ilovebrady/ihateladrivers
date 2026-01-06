@@ -17,7 +17,7 @@ export default function Home() {
   // Sort by 'worst' to show highest average rating plates first
   const { data: plates, isLoading } = usePlates('worst');
 
-  const { data: brandStats, isLoading: isBrandsLoading } = useQuery({
+  const { data: brandStats, isLoading: isBrandsLoading } = useQuery<{ make: string; count: number; avgRating: number }[]>({
     queryKey: ["/api/brands/stats"],
   });
 
