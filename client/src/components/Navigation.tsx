@@ -1,7 +1,8 @@
 import { Link, useLocation } from "wouter";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
-import { CarFront, LogIn, LogOut, Plus, Search } from "lucide-react";
+import { LogIn, LogOut, Search } from "lucide-react";
+import logoImage from "@assets/IMG_5969_1767742239646.jpeg";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,7 +24,7 @@ export function Navigation() {
           <Link href="/" className="flex items-center gap-2 group">
             <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-all duration-300 relative overflow-hidden">
               <div className="absolute inset-0 bg-primary/5 blur-sm animate-pulse" />
-              <CarFront size={24} className="relative z-10 group-hover:rotate-12 transition-transform" />
+              <img src={logoImage} alt="hall of shame logo" className="relative z-10 w-8 h-8 object-cover rounded-lg group-hover:rotate-12 transition-transform" />
             </div>
             <span className="font-display text-2xl font-normal tracking-wider text-foreground">
               hall of <span className="text-primary">shame</span>
