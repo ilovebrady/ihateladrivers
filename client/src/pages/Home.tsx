@@ -1,17 +1,12 @@
 import { usePlates } from "@/hooks/use-plates";
 import { PlateCard } from "@/components/PlateCard";
-import { Loader2, AlertTriangle, TrendingUp, ShieldAlert, Car } from "lucide-react";
+import { Loader2, AlertTriangle, TrendingUp, ShieldAlert, Car, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Plate } from "@shared/schema";
-
-interface PlateWithStats extends Plate {
-  reportCount: number;
-  averageRating: number | null;
-}
+import { Plate, Report } from "@shared/schema";
 
 export default function Home() {
   // Sort by 'worst' to show highest average rating plates first
@@ -20,6 +15,22 @@ export default function Home() {
   const { data: brandStats, isLoading: isBrandsLoading } = useQuery<{ make: string; count: number; avgRating: number }[]>({
     queryKey: ["/api/brands/stats"],
   });
+
+  const { data: recentReports } = useQuery<Report[]>({
+    queryKey: ["/api/reports/recent"],
+  });
+
+  // Calculate city frequency for "places to avoid"
+  const cityStats = recentReports?.reduce((acc: Record<string, number>, report) => {
+    if (report.location) {
+      acc[report.location] = (acc[report.location] || 0) + 1;
+    }
+    return acc;
+  }, {});
+
+  const topCities = Object.entries(cityStats || {})
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 5);
 
   if (isLoading) {
     return (
@@ -47,7 +58,7 @@ export default function Home() {
               <span>don't take pictures while driving!</span>
             </div>
             
-            <h1 className="text-5xl md:text-7xl font-display font-normal mb-6 leading-none">
+            <h1 className="text-5xl md:text-7xl font-display font-normal mb-6 leading-none text-foreground">
               terrible driver? <br />
               <span className="text-primary">
                 welcome to california
@@ -74,36 +85,66 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Brand Tally Section */}
+      {/* Stats and Places Section */}
       <section className="container max-w-7xl mx-auto px-4 mb-20">
-        <Card className="border-none shadow-none bg-muted/30">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-2xl font-normal">
-              <Car className="text-primary" />
-              worst driving brands
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {isBrandsLoading ? (
-              <Loader2 className="w-6 h-6 animate-spin mx-auto" />
-            ) : (
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                {brandStats?.map((brand: any) => (
-                  <div key={brand.make} className="bg-background p-4 rounded-xl border flex flex-col items-center justify-center text-center">
-                    <span className="text-sm font-normal text-muted-foreground">{brand.make}</span>
-                    <span className="text-2xl font-normal text-primary">{brand.count}</span>
-                    <span className="text-xs text-muted-foreground">reports</span>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Brand Tally */}
+          <Card className="lg:col-span-2 border-none shadow-none bg-muted/30">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-2xl font-normal">
+                <Car className="text-primary" />
+                worst driving brands
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {isBrandsLoading ? (
+                <Loader2 className="w-6 h-6 animate-spin mx-auto" />
+              ) : (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {brandStats?.map((brand: any) => (
+                    <div key={brand.make} className="bg-background p-4 rounded-xl border flex flex-col items-center justify-center text-center">
+                      <span className="text-sm font-normal text-muted-foreground">{brand.make?.toLowerCase()}</span>
+                      <span className="text-2xl font-normal text-primary">{brand.count}</span>
+                      <span className="text-xs text-muted-foreground">reports</span>
+                    </div>
+                  ))}
+                  {(!brandStats || brandStats.length === 0) && (
+                    <div className="col-span-full py-8 text-center text-muted-foreground italic">
+                      Waiting for brand data...
+                    </div>
+                  )}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Places to Avoid */}
+          <Card className="border-none shadow-none bg-muted/30">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-2xl font-normal">
+                <MapPin className="text-primary" />
+                places to avoid
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {topCities.map(([city, count]) => (
+                  <div key={city} className="flex items-center justify-between p-3 bg-background rounded-lg border">
+                    <span className="text-sm font-normal">{city.toLowerCase()}</span>
+                    <span className="bg-primary/10 text-primary px-2 py-0.5 rounded text-xs font-bold">
+                      {count} reports
+                    </span>
                   </div>
                 ))}
-                {(!brandStats || brandStats.length === 0) && (
-                  <div className="col-span-full py-8 text-center text-muted-foreground italic">
-                    Waiting for brand data...
-                  </div>
+                {topCities.length === 0 && (
+                  <p className="text-muted-foreground italic text-center py-4">
+                    Waiting for location data...
+                  </p>
                 )}
               </div>
-            )}
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
       </section>
 
       {/* Leaderboard Section */}
@@ -114,10 +155,10 @@ export default function Home() {
               <TrendingUp className="text-primary" />
               biggest idiots
             </h2>
-            <p className="text-muted-foreground mt-2">Drivers with the highest severity ratings this week.</p>
+            <p className="text-muted-foreground mt-2 font-normal">Drivers with the highest severity ratings this week.</p>
           </div>
           <Link href="/search">
-            <Button variant="ghost" className="hidden sm:flex text-muted-foreground hover:text-primary">
+            <Button variant="ghost" className="hidden sm:flex text-muted-foreground hover:text-primary font-normal">
               View All Plates →
             </Button>
           </Link>
@@ -144,9 +185,9 @@ export default function Home() {
 
           {(!plates || plates.length === 0) && (
             <div className="col-span-full py-20 text-center glass-panel rounded-xl border-dashed">
-              <p className="text-muted-foreground text-lg">No reports yet. Be the first to report a bad driver!</p>
+              <p className="text-muted-foreground text-lg font-normal">No reports yet. Be the first to report a bad driver!</p>
               <Link href="/report">
-                <Button className="mt-4" variant="outline">Start Reporting</Button>
+                <Button className="mt-4 font-normal" variant="outline">Start Reporting</Button>
               </Link>
             </div>
           )}
