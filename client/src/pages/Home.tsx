@@ -50,13 +50,12 @@ export default function Home() {
             <h1 className="text-5xl md:text-7xl font-display font-normal mb-6 leading-none">
               terrible driver? <br />
               <span className="text-primary">
-                keep them accountable
+                welcome to california
               </span>
             </h1>
             
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
-              Join the community database of road incidents. Spot bad driving? 
-              Snap a photo, rate the driver, and help keep our roads accountable.
+              see a terrible driver? take a pic and provide them public shame! it is the right thing to do :)
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
