@@ -9,10 +9,23 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Loader2, Camera, Upload, CheckCircle2, AlertTriangle, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocation } from "wouter";
 import { useToast } from "@/hooks/use-toast";
+
+const SOCAL_CITIES = [
+  "Alhambra", "Anaheim", "Arcadia", "Bakersfield", "Beverly Hills", "Burbank",
+  "Carlsbad", "Carson", "Chula Vista", "Compton", "Costa Mesa", "Downey",
+  "El Cajon", "El Monte", "Escondido", "Fullerton", "Garden Grove", "Glendale",
+  "Huntington Beach", "Inglewood", "Irvine", "Lancaster", "Long Beach",
+  "Los Angeles", "Newport Beach", "Norwalk", "Oceanside", "Ontario", "Orange",
+  "Oxnard", "Palmdale", "Pasadena", "Pomona", "Rancho Cucamonga", "Riverside",
+  "San Bernardino", "San Diego", "Santa Ana", "Santa Barbara", "Santa Clarita",
+  "Santa Monica", "Simi Valley", "Temecula", "Thousand Oaks", "Torrance",
+  "Valencia", "Ventura", "West Covina", "West Hollywood", "Whittier"
+].sort();
 
 // Helper to convert file to base64 for our mock backend
 const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
@@ -220,13 +233,18 @@ export default function Report() {
 
               <div className="space-y-2">
                 <Label htmlFor="location">Location (Optional)</Label>
-                <Input 
-                  id="location" 
-                  placeholder="e.g. I-95 South, Exit 42" 
-                  className="bg-background/50"
-                  value={locationStr}
-                  onChange={(e) => setLocationStr(e.target.value)}
-                />
+                <Select value={locationStr} onValueChange={setLocationStr}>
+                  <SelectTrigger className="bg-background/50">
+                    <SelectValue placeholder="Select a city..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {SOCAL_CITIES.map((city) => (
+                      <SelectItem key={city} value={city}>
+                        {city.toLowerCase()}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
 
               <Button 

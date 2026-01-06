@@ -25,7 +25,9 @@ export interface IStorage {
 export class DatabaseStorage implements IStorage {
   async getPlates(sort: 'worst' | 'recent' | 'popular' = 'recent', search?: string): Promise<PlateWithStats[]> {
     let query = db.select({
-      ...plates,
+      id: plates.id,
+      licenseNumber: plates.licenseNumber,
+      createdAt: plates.createdAt,
       reportCount: sql<number>`count(${reports.id})::int`,
       averageRating: sql<number>`avg(${reports.rating})`,
       lastReported: sql<Date>`max(${reports.createdAt})`,
