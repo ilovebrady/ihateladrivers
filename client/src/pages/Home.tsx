@@ -67,7 +67,7 @@ export default function Home() {
               </Link>
               <Link href="/search">
                 <Button size="lg" variant="outline" className="h-14 px-8 text-lg rounded-xl border-white/10 bg-white/5 hover:bg-white/10 hover:text-white">
-                  Search Database
+                  find terrible driver
                 </Button>
               </Link>
             </div>
@@ -113,7 +113,7 @@ export default function Home() {
           <div>
             <h2 className="text-3xl font-normal flex items-center gap-3">
               <TrendingUp className="text-primary" />
-              community reports
+              biggest idiots
             </h2>
             <p className="text-muted-foreground mt-2">Drivers with the highest severity ratings this week.</p>
           </div>
