@@ -47,10 +47,10 @@ export function PlateCard({ id, licenseNumber, reportCount, averageRating, lastR
           <div className="glass-panel rounded-xl p-5 hover:border-primary/50 transition-colors h-full flex flex-col justify-between">
             {/* Rank Badge if provided */}
             {rank && rank <= 3 && (
-              <div className={`absolute -top-3 -right-3 w-8 h-8 rounded-full flex items-center justify-center font-normal text-white shadow-lg ${
+              <div className={`absolute -top-3 -right-3 px-3 h-8 rounded-full flex items-center justify-center font-normal text-white shadow-lg text-[10px] whitespace-nowrap ${
                 rank === 1 ? 'bg-yellow-500' : rank === 2 ? 'bg-slate-400' : 'bg-orange-700'
               }`}>
-                {rank}
+                {rank === 1 ? 'biggest idiot' : rank === 2 ? 'second biggest idiot' : 'third biggest idiot'}
               </div>
             )}
 
