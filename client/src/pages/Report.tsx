@@ -239,7 +239,7 @@ export default function Report() {
                     <Loader2 className="mr-2 h-5 w-5 animate-spin" /> Submitting...
                   </>
                 ) : (
-                  <>Submit Report <ArrowRight className="ml-2" /></>
+                  <>upload socal driver <ArrowRight className="ml-2" /></>
                 )}
               </Button>
             </div>
