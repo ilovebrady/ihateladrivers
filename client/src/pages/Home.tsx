@@ -32,6 +32,10 @@ export default function Home() {
     .sort(([, a], [, b]) => b - a)
     .slice(0, 5);
 
+  console.log("Recent Reports:", recentReports);
+  console.log("City Stats:", cityStats);
+  console.log("Top Cities:", topCities);
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
@@ -128,9 +132,12 @@ export default function Home() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {topCities.map(([city, count]) => (
+                {topCities.map(([city, count], index) => (
                   <div key={city} className="flex items-center justify-between p-3 bg-background rounded-lg border">
-                    <span className="text-sm font-normal">{city.toLowerCase()}</span>
+                    <div className="flex items-center gap-3">
+                      <span className="text-xs font-bold text-muted-foreground w-4">{index + 1}.</span>
+                      <span className="text-sm font-normal">{city.toLowerCase()}</span>
+                    </div>
                     <span className="bg-primary/10 text-primary px-2 py-0.5 rounded text-xs font-bold">
                       {count} reports
                     </span>
