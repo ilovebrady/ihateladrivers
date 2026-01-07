@@ -104,7 +104,7 @@ export class DatabaseStorage implements IStorage {
   async getRecentReports(): Promise<Report[]> {
     return db.query.reports.findMany({
       orderBy: desc(reports.createdAt),
-      limit: 10,
+      limit: 100, // Increase limit to get more location data
     });
   }
 

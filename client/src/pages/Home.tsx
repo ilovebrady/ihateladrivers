@@ -9,8 +9,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plate, Report } from "@shared/schema";
 
 export default function Home() {
-  // Sort by 'worst' to show highest average rating plates first
-  const { data: plates, isLoading } = usePlates('worst');
+  // Sort by 'popular' to show highest report count plates first
+  const { data: plates, isLoading } = usePlates('popular');
 
   const { data: brandStats, isLoading: isBrandsLoading } = useQuery<{ make: string; count: number; avgRating: number }[]>({
     queryKey: ["/api/brands/stats"],
