@@ -49,6 +49,7 @@ export const insertReportSchema = createInsertSchema(reports).omit({
   reporterId: true,
 }).extend({
   licenseNumber: z.string().min(1, "License plate is required"),
+  location: z.string().nullable().optional(),
 });
 
 export const analyzeImageSchema = z.object({

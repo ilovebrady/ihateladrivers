@@ -17,7 +17,7 @@ export default function Home() {
   });
 
   const { data: recentReports } = useQuery<Report[]>({
-    queryKey: ["/api/reports/recent"],
+    queryKey: ["/api/reports"],
   });
 
   // Calculate city frequency for "places to avoid"
@@ -32,9 +32,9 @@ export default function Home() {
     .sort(([, a], [, b]) => b - a)
     .slice(0, 5);
 
-  console.log("Recent Reports:", recentReports);
-  console.log("City Stats:", cityStats);
-  console.log("Top Cities:", topCities);
+  console.log("Recent Reports for Map:", recentReports);
+  console.log("Calculated City Stats:", cityStats);
+  console.log("Top Cities for Ranking:", topCities);
 
   if (isLoading) {
     return (
